@@ -1,0 +1,31 @@
+<h1>Editar avaliação</h1>
+
+<form action="/editar/<%= avaliacao.idAvaliacao %>" method="POST">
+
+    <input
+        type="number"
+        name="nota"
+        value="<%= avaliacao.nota %>"
+        min="1"
+        max="5"
+    >
+
+    <br><br>
+
+    <textarea
+        name="comentario"
+    ><%= avaliacao.comentario %></textarea>
+
+    <br><br>
+
+    <button>
+
+        Salvar
+
+    </button>
+
+    <a href="/avaliacoes">
+    ← Voltar
+</a>
+
+</form>

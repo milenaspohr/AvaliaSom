@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AvaliaSom</title>
+</head>
+
+<body>
+
+<h2>Olá, <%= usuario.nome %>!</h2>
+
+<a href="/logout">
+    Sair
+</a>
+
+<br><br>
+
+<form action="/buscar" method="GET">
+
+    <input
+        type="text"
+        name="q"
+        placeholder="Pesquisar artista, álbum ou música"
+    >
+
+    <button>
+        Buscar
+    </button>
+
+</form>
+
+    <h2>3 músicas mais avaliadas do mês</h2>
+
+    <% if(topMusicas.length === 0){ %>
+
+        <p>Ainda não existem avaliações este mês.</p>
+
+    <% } else { %>
+
+        <% topMusicas.forEach((musica, index) => { %>
+
+            <div style="margin-bottom:25px;">
+
+                <h3>
+
+                    <% if(index === 0){ %>
+                        🥇
+                    <% } else if(index === 1){ %>
+                        🥈
+                    <% } else { %>
+                        🥉
+                    <% } %>
+
+                    <%= musica.titulo %>
+
+                </h3>
+
+                <img
+                    src="<%= musica.imagem %>"
+                    width="150"
+                >
+
+                <p>
+
+                    Artista:
+                    <%= musica.artista %>
+
+                </p>
+
+                <p>
+
+                    <strong>
+                        <%= musica.totalAvaliacoes %>
+                    </strong>
+
+                    avaliação(oes) 
+
+                </p>
+
+            </div>
+
+            <hr>
+
+        <% }) %>
+
+    <% } %>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<h2><%= usuario.nome %>!</h2>
+<h1>Minhas avaliações</h1>
+
+<% avaliacoes.forEach(avaliacao => { %>
+
+    <hr>
+
+    <h2><%= avaliacao.titulo %></h2>
+
+    <p>Nota: <%= avaliacao.nota %></p>
+
+    <p><%= avaliacao.comentario %></p>
+
+    <a href="/editar/<%= avaliacao.idAvaliacao %>">
+
+        Editar
+
+    </a>
+
+    |
+
+    <a href="/excluir/<%= avaliacao.idAvaliacao %>">
+
+        Excluir
+
+    </a>
+    <br><br>
+    <a href="/home">
+    ← Voltar
+</a>
+
+<% }) %>
