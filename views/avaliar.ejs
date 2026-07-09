@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Avaliar</title>
+</head>
+
+<body>
+
+<h1><%= item.name %></h1>
+
+<form action="/avaliar" method="POST">
+
+    <input
+        type="hidden"
+        name="spotifyId"
+        value="<%= item.id %>"
+    >
+
+    <input
+        type="hidden"
+        name="tipo"
+        value="<%= tipo %>"
+    >
+
+    <input
+        type="hidden"
+        name="titulo"
+        value="<%= item.name %>"
+    >
+
+    <p>Nota</p>
+
+    <input
+        type="number"
+        name="nota"
+        min="1"
+        max="5"
+        required
+    >
+
+    <br><br>
+
+    <p>Comentário</p>
+
+    <textarea
+        name="comentario"
+        rows="5"
+        cols="40"
+        required
+    ></textarea>
+
+    <br><br>
+
+    <button>
+
+        Salvar avaliação
+
+    </button>
+
+</form>
+
+</body>
+
+</html>
