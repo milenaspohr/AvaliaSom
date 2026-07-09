@@ -59,6 +59,3 @@ node app.js
 O sistema estará disponível em:
 http://localhost:3000
 
-
-- Milena Spohr
-- (Nome do colega)
