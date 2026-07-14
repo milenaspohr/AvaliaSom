@@ -5,6 +5,7 @@ const app = express();
 const bd = require("./bd");
 const session = require("express-session");
 
+
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
@@ -17,6 +18,26 @@ app.use(session({
     saveUninitialized: false
 
 }));
+
+function traduzirTipo(tipo) {
+
+    switch (tipo) {
+
+        case "artist":
+            return "Artista";
+
+        case "album":
+            return "Álbum";
+
+        case "track":
+            return "Música";
+
+        default:
+            return tipo;
+
+    }
+
+}
 
 // cadastro
 app.get("/cadastro", (req, res) => {
@@ -175,7 +196,9 @@ app.get("/detalhes/:tipo/:id", async (req, res) => {
         res.render("detalhes", {
 
             item: resultado.data,
-            tipo
+            tipo,
+            tipoTraduzido: traduzirTipo(tipo)
+
 
         });
 
@@ -213,7 +236,8 @@ app.get("/avaliar/:tipo/:id", async (req, res) => {
         res.render("avaliar", {
 
             item: resultado.data,
-            tipo
+            tipo,
+            tipoTraduzido: traduzirTipo(tipo)
 
         });
 
@@ -280,4 +304,165 @@ app.post("/avaliar", (req, res) => {
 
 app.listen(3000, () => {
     console.log("Servidor rodando");
+});
+
+// avaliações
+app.get("/avaliacoes", (req, res) => {
+
+    const idUsuario = req.session.usuario.idUsuario;
+
+    const sql = `
+        SELECT *
+        FROM avaliacoes
+        WHERE idUsuario = ?
+        ORDER BY dataCriacao DESC
+    `;
+
+    bd.query(sql, [idUsuario], (erro, resultados) => {
+
+        if (erro) {
+            console.log(erro);
+            return res.send("Erro.");
+        }
+
+        res.render("avaliacoes", {
+
+            usuario: req.session.usuario,
+            avaliacoes: resultados
+
+        });
+
+    });
+
+});
+
+// editar avaliação
+app.get("/editar/:id", (req, res) => {
+
+    const sql = `
+        SELECT *
+        FROM avaliacoes
+        WHERE idAvaliacao = ?
+        AND idUsuario = ?
+    `;
+
+    bd.query(
+
+        sql,
+
+        [
+
+            req.params.id,
+            req.session.usuario.idUsuario
+
+        ],
+
+        (erro, resultado) => {
+
+            if(resultado.length == 0){
+
+                return res.send("Avaliação não encontrada.");
+
+            }
+
+            res.render("editar", {
+
+                avaliacao: resultado[0]
+
+            });
+
+        }
+
+    );
+
+});
+
+app.post("/editar/:id", (req, res) => {
+
+    const {
+
+        nota,
+        comentario
+
+    } = req.body;
+
+    const sql = `
+        UPDATE avaliacoes
+
+        SET
+
+        nota = ?,
+        comentario = ?
+
+        WHERE idAvaliacao = ?
+        AND idUsuario = ?
+    `;
+
+    bd.query(
+
+        sql,
+
+        [
+
+            nota,
+            comentario,
+            req.params.id,
+            req.session.usuario.idUsuario
+
+        ],
+
+        (erro) => {
+
+            if(erro){
+
+                console.log(erro);
+
+                return res.send("Erro.");
+
+            }
+
+            res.redirect("/avaliacoes");
+
+        }
+
+    );
+
+});
+
+// deletar avaliação
+app.get("/excluir/:id", (req, res) => {
+
+    const sql = `
+        DELETE FROM avaliacoes
+        WHERE idAvaliacao = ?
+        AND idUsuario = ?
+    `;
+
+    bd.query(
+
+        sql,
+
+        [
+
+            req.params.id,
+            req.session.usuario.idUsuario
+
+        ],
+
+        (erro) => {
+
+            if(erro){
+
+                console.log(erro);
+
+                return res.send("Erro.");
+
+            }
+
+            res.redirect("/avaliacoes");
+
+        }
+
+    );
+
 });

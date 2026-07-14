@@ -1,31 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Editar avaliação</title>
+</head>
+
+<body>
+
 <h1>Editar avaliação</h1>
 
 <form action="/editar/<%= avaliacao.idAvaliacao %>" method="POST">
 
-    <input
-        type="number"
-        name="nota"
-        value="<%= avaliacao.nota %>"
-        min="1"
-        max="5"
-    >
+<p>Nota</p>
 
-    <br><br>
+<input
+type="number"
+name="nota"
+min="1"
+max="5"
+value="<%= avaliacao.nota %>"
+required>
 
-    <textarea
-        name="comentario"
-    ><%= avaliacao.comentario %></textarea>
+<br><br>
 
-    <br><br>
+<p>Comentário</p>
 
-    <button>
+<textarea
+name="comentario"
+rows="5"
+cols="40"
+required><%= avaliacao.comentario %></textarea>
 
-        Salvar
+<br><br>
 
-    </button>
+<button>
 
-    <a href="/avaliacoes">
-    ← Voltar
-</a>
+Salvar
+
+</button>
 
 </form>
+
+<br>
+
+<a href="/avaliacoes">
+
+Cancelar
+
+</a>
+
+</body>
+
+</html>
