@@ -3,11 +3,13 @@
 
 <head>
     <title>AvaliaSom</title>
+    <link rel="stylesheet" href="/css/style.css">
+    
 </head>
 
 <body>
-
-<h2>Olá, <%= usuario.nome %>!</h2>
+<div class="container">
+    <h2>Olá, <%= usuario.nome %>, veja o que está rolando no mundo da música...</h2>
 
 
 <form action="/buscar" method="GET">
@@ -22,6 +24,68 @@
         Buscar
     </button>
     <br><br>
+    <h2>Top 3 músicas mais avaliadas do mês</h2>
+    <div class="top3"> 
+
+<% if(topMusicas.length === 0){ %>
+
+    <p>Ainda não existem avaliações este mês.</p>
+
+<% } else { %>
+
+    <% topMusicas.forEach((musica, index) => { %>
+
+        <div class="card">
+
+            <h3><%= index + 1 %>° - <%= musica.titulo %></h3>
+
+            <img
+                src="<%= musica.imagem %>"
+                width="120"
+            >
+
+            <p><%= musica.artista %></p>
+
+            <p><b><%= musica.totalAvaliacoes %></b> avaliações</p>
+
+            <p>⭐ <%= musica.media %>/5</p>
+
+        </div>
+
+        
+
+    <% }) %>
+
+<% } %>
+
+<% feed.forEach(secao => { %>
+
+<h2><%= secao.genero.toUpperCase() %></h2>
+
+<div class="feed">
+
+<% secao.musicas.forEach(musica => { %>
+
+<div class="card">
+
+<img src="<%= musica.album.images[0].url %>" width="170">
+
+<h3><%= musica.name %></h3>
+
+<p><%= musica.artists[0].name %></p>
+
+<a href="/detalhes/track/<%= musica.id %>">
+Ver detalhes
+</a>
+
+</div>
+
+<% }) %>
+
+</div>
+
+<% }) %>
+
     <a href="/avaliacoes">
 Minhas avaliações
 </a>

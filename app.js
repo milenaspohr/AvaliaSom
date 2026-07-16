@@ -8,6 +8,7 @@ const session = require("express-session");
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 app.use(session({
 
@@ -113,23 +114,112 @@ app.get("/logout", (req, res) => {
     });
 
 });
-// home
+
+//home
 app.get("/home", (req, res) => {
 
     if (!req.session.usuario) {
-
         return res.redirect("/");
-
     }
 
-    res.render("home", {
+    const sql = `
+        SELECT
+            spotifyId,
+            titulo,
+            COUNT(*) AS totalAvaliacoes,
+            ROUND(AVG(nota),1) AS media
+        FROM avaliacoes
+        WHERE tipo = 'track'
+        AND MONTH(dataCriacao) = MONTH(CURRENT_DATE())
+        AND YEAR(dataCriacao) = YEAR(CURRENT_DATE())
+        GROUP BY spotifyId, titulo
+        ORDER BY totalAvaliacoes DESC
+        LIMIT 3
+    `;
 
-    usuario: req.session.usuario
+    bd.query(sql, async (erro, resultados) => {
 
-});
+        if (erro) {
+            console.log(erro);
+            return res.send("Erro.");
+        }
 
+        try {
 
-});
+            const token = await getToken();
+            const topMusicas = [];
+
+            // top 3
+            for (const musica of resultados) {
+
+                const resposta = await axios.get(
+                    `https://api.spotify.com/v1/tracks/${musica.spotifyId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                topMusicas.push({
+                    ...musica,
+                    imagem: resposta.data.album.images[0].url,
+                    artista: resposta.data.artists[0].name
+                });
+
+            }
+
+            // feed
+        const generos = [
+                        "pop",
+                        "rock",
+                        "rap",
+                        "mpb",
+                        "sertanejo"
+                    ];
+            const feed = [];
+
+    for (const genero of generos) {
+
+        const resposta = await axios.get(
+            "https://api.spotify.com/v1/search",
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                params: {
+                    q: `genre:${genero}`,
+                    type: "track",
+                    limit: 4
+                }
+            }
+        );
+
+        feed.push({
+            genero,
+            musicas: resposta.data.tracks.items
+        });
+
+    }
+                
+            res.render("home", {
+                usuario: req.session.usuario,
+                topMusicas,
+                feed
+
+            });
+
+        } catch (erro) {
+
+            console.log(erro);
+            res.send("Erro ao carregar a home.");
+
+        }
+
+    });
+
+});    
+
 // pesquisa
 app.get("/buscar", async (req, res) => {
 
@@ -302,10 +392,6 @@ app.post("/avaliar", (req, res) => {
 
 });
 
-app.listen(3000, () => {
-    console.log("Servidor rodando");
-});
-
 // avaliações
 app.get("/avaliacoes", (req, res) => {
 
@@ -328,7 +414,8 @@ app.get("/avaliacoes", (req, res) => {
         res.render("avaliacoes", {
 
             usuario: req.session.usuario,
-            avaliacoes: resultados
+            avaliacoes: resultados,
+            traduzirTipo: traduzirTipo
 
         });
 
@@ -465,4 +552,9 @@ app.get("/excluir/:id", (req, res) => {
 
     );
 
+});
+
+
+app.listen(3000, () => {
+    console.log("Servidor rodando");
 });

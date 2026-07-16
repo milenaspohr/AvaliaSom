@@ -11,6 +11,7 @@
 
 <h2>Minhas avaliações</h2>
 
+
 <% if(avaliacoes.length == 0){ %>
 
 <p>Você ainda não fez nenhuma avaliação.</p>
@@ -23,7 +24,7 @@
 
 <h3><%= avaliacao.titulo %></h3>
 
-<p><b>Tipo:</b> <%= avaliacao.tipo %></p>
+<p><b>Tipo:</b> <%= traduzirTipo(avaliacao.tipo) %></p>
 
 <p><b>Nota:</b> <%= avaliacao.nota %>/5</p>
 
