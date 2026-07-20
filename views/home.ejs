@@ -3,29 +3,48 @@
 
 <head>
     <title>AvaliaSom</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">               
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
 </head>
 
 <body>
+    <header>
+
+    <div class="logo">
+
+        <img src="/img/logo.png" alt="AvaliaSom">
+
+    </div>
+
+    <form action="/buscar" method="GET" class="pesquisa">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Pesquisar artista, álbum ou música..."
+        >
+
+    </form>
+
+    <nav>
+        
+        <a href="/avaliacoes">Perfil</a>
+
+        <a href="/logout">Sair</a>
+
+    </nav>
+
+</header>
 <div class="container">
-    <h2>Olá, <%= usuario.nome %>, veja o que está rolando no mundo da música...</h2>
+    <h2 class="ola">Olá, <%= usuario.nome %>, veja o que está rolando no mundo da música...</h2>
 
-
-<form action="/buscar" method="GET">
-
-    <input
-        type="text"
-        name="q"
-        placeholder="Pesquisar artista, álbum ou música"
-    >
-    <br><br>
-    <button>
-        Buscar
-    </button>
-    <br><br>
+    <section class="top3-section">
     <h2>Top 3 músicas mais avaliadas do mês</h2>
-    <div class="top3"> 
+
+<div class="top3">
 
 <% if(topMusicas.length === 0){ %>
 
@@ -35,7 +54,7 @@
 
     <% topMusicas.forEach((musica, index) => { %>
 
-        <div class="card">
+        <div class="card-top">
 
             <h3><%= index + 1 %>° - <%= musica.titulo %></h3>
 
@@ -52,12 +71,12 @@
 
         </div>
 
-        
-
     <% }) %>
 
 <% } %>
 
+</div> 
+</section>
 <% feed.forEach(secao => { %>
 
 <h2><%= secao.genero.toUpperCase() %></h2>
@@ -66,7 +85,7 @@
 
 <% secao.musicas.forEach(musica => { %>
 
-<div class="card">
+<div class="card-feed">
 
 <img src="<%= musica.album.images[0].url %>" width="170">
 
@@ -85,17 +104,3 @@ Ver detalhes
 </div>
 
 <% }) %>
-
-    <a href="/avaliacoes">
-Minhas avaliações
-</a>
-
-|
-
-<a href="/logout">
-Sair
-</a>
-
-</body>
-
-</html>
