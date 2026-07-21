@@ -1,0 +1,288 @@
+body{
+    margin:0;
+    font-family: "Poppins", sans-serif;
+    background:#3c004b;
+}
+/* menu */
+
+header{
+    background:#25002f;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 50px;
+}
+
+.logo img{
+    height:50px;
+}
+
+.pesquisa{
+    margin:0;
+}
+
+.pesquisa input{
+    width:450px;
+    padding:12px 18px;
+    border:none;
+    border-radius:25px;
+    outline:none;
+    font-size:16px;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+nav a:hover{
+    color:#c77dff;
+}
+
+/* corpo da home */
+.ola{
+    font-size: 19px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 40px;
+}
+
+
+h2{
+    text-align:center;
+    color:white;
+    font-size: 33px;
+    font-weight: 700;
+
+}
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:40px auto;
+}
+form{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+input{
+    width:350px;
+    padding:12px;
+}
+
+button{
+    padding:12px 20px;
+}
+/* cards top 3 */
+.top3-section{
+    margin-bottom: 100px;
+}
+.top3{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+    margin-top:40px;
+}
+
+.card-top{
+
+    width:220px;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 5px 18px rgba(0,0,0,.15);
+    padding:25px;
+    text-align:center;
+    transition:.2s;
+}
+
+.card-top:hover{
+    transform:translateY(-8px);
+}
+
+.card-top img{
+    width: 180px;
+    border-radius: 12px;
+    margin:15px 0;
+
+}
+
+.card-top h3{
+    margin-bottom: 15px;
+}
+
+/* feed */
+
+.feed{
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+.card-feed{
+
+    width:170px;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 5px 18px rgba(0,0,0,.15);
+    padding:18px;
+    text-align:center;
+    transition:.2s;
+
+}
+.card-feed:hover{
+    transform:translateY(-8px);
+}
+
+.card-feed img{
+    width:140px;
+    border-radius:10px;
+    margin:12px 0;
+}
+
+.card-feed h3{
+    font-size:19px;
+    margin-bottom:10px;
+}
+
+.card-feed p{
+    font-size:18px;
+    margin:8px 0;
+}
+
+.card-feed a{
+    display:inline-block;
+    margin-top:10px;
+    text-decoration:none;
+    font-weight:bold;
+    color:#c77dff;
+}
+
+.card-feed a:hover{
+    color:#8f39ff;
+}
+
+/* ============================
+   RESULTADOS DA PESQUISA
+============================ */
+
+.resultado-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px;                            
+  justify-items: center;                
+  max-width: 1000px;                    
+  margin: 0 auto;                        
+}
+
+.card-resultado{
+
+    width:220px;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 5px 18px rgba(0,0,0,.15);
+    padding:22px;
+    text-align:center;
+    transition:.25s;
+}
+
+.card-resultado:hover{
+    transform:translateY(-8px);
+}
+
+.card-resultado img{
+
+    width:170px;
+    height:170px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:15px;
+
+}
+
+.card-resultado h3{
+
+    margin:12px 0 8px;
+    font-size:20px;
+    color:#25002f;
+
+}
+
+.card-resultado p{
+
+    margin:6px 0;
+    color:#555;
+    font-size:15px;
+
+}
+
+.card-resultado a{
+
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 18px;
+    border-radius:20px;
+    background:#8f39ff;
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+    transition:.2s;
+
+}
+
+.card-resultado a:hover{
+
+    background:#6d18da;
+
+}
+
+.voltar{
+
+    text-align:center;
+    margin:50px 0;
+
+}
+
+.voltar a{
+
+    display:inline-block;
+    padding:14px 30px;
+    background:#25002f;
+    color:white;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.2s;
+
+}
+
+.voltar a:hover{
+
+    background:#8f39ff;
+
+}
+
+h1{
+    text-align:left;
+    color:white;
+    font-size: 23px;
+    font-weight: normal;
+
+}
+.pre-resultado{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;            
+}
+.container-resultado{
+    max-width: 1000px;     
+    margin: 20px auto 0;   
+    padding: 0 20px;
+}
+
+

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Resultados</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+
+    <div class="logo">
+
+        <img src="/img/logo.png" alt="AvaliaSom">
+
+    </div>
+    <form action="/buscar" method="GET" class="pesquisa">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Pesquisar artista, álbum ou música..."
+        >
+
+    </form>
+    <nav>
+        
+        <a href="/avaliacoes">Perfil</a>
+
+        <a href="/logout">Sair</a>
+
+    </nav>
+
+</header>
+
+    <div class="container-resultado">
+        <div class="pre-resultado">
+            <h1>Resultados da pesquisa</h1>
+
+            <div class="voltar">
+                <a href="/home">← Voltar</a>
+            </div>
+        </div>
+
+        <h2>Artistas</h2>
+
+        <div class="resultado-grid">
+
+            <% artistas.forEach(artista => { %>
+
+                <div class="card-resultado">
+
+                    <% if (artista.images.length > 0) { %>
+
+                        <img src="<%= artista.images[0].url %>" width="120">
+
+                    <% } %>
+
+                    <h3><%= artista.name %></h3>
+
+                    <a href="/detalhes/artist/<%= artista.id %>">
+                        Abrir
+                    </a>
+
+                </div>
+
+            <% }) %>
+        </div>
+
+        <h2>Álbuns</h2>
+        <div class="resultado-grid">
+            <% albuns.forEach(album => { %>
+
+                <div class="card-resultado">
+
+                    <% if (album.images.length > 0) { %>
+
+                        <img src="<%= album.images[0].url %>" width="120">
+
+                    <% } %>
+
+                    <h3><%= album.name %></h3>
+
+                    <p><%= album.artists[0].name %></p>
+
+                    <a href="/detalhes/album/<%= album.id %>">
+                        Abrir
+                    </a>
+
+                </div>
+
+            <% }) %>
+        </div>
+
+
+        <h2>Músicas</h2>
+        <div class="resultado-grid">
+            <% musicas.forEach(musica => { %>
+
+                <div class="card-resultado">
+
+                    <% if (musica.album.images.length > 0) { %>
+
+                        <img src="<%= musica.album.images[0].url %>" width="120">
+
+                    <% } %>
+
+                    
+                    <h3><%= musica.name %></h3>
+
+                    <p><%= musica.artists[0].name %></p>
+
+                    <p><%= musica.album.name %></p>
+
+                    <a href="/detalhes/track/<%= musica.id %>">
+                        Abrir
+                    </a>
+
+                </div>
+
+            <% }) %>
+        </div>
+        
+    </div>
+</body>
+</html>

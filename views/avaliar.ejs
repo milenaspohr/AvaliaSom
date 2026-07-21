@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Avaliar</title>
+    <link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+.rating{
+
+    display:flex;
+    gap:8px;
+
+}
+
+.estrela{
+
+    font-size:40px;
+
+    color:#f5c518;
+
+    cursor:pointer;
+
+    transition:.15s;
+
+}
+
+.estrela:hover{
+
+    transform:scale(1.15);
+
+}
+
+</style>
+</head>
+
+<body>
+
+<h1><%= item.name %></h1>
+
+<form action="/avaliar" method="POST">
+
+    <input
+        type="hidden"
+        name="spotifyId"
+        value="<%= item.id %>"
+    >
+
+    <input
+        type="hidden"
+        name="tipo"
+        value="<%= tipo %>"
+    >
+
+    <input
+        type="hidden"
+        name="titulo"
+        value="<%= item.name %>"
+    >
+
+
+    <input
+    type="hidden"
+    name="nota"
+    id="nota"
+    required
+>
+
+<p>Nota</p>
+
+<div class="rating">
+
+    <% for(let i=1;i<=5;i++){ %>
+
+        <i
+            class="fa-regular fa-star estrela"
+            data-value="<%= i %>">
+        </i>
+
+    <% } %>
+
+</div>
+
+<p id="textoNota">
+Clique em uma estrela
+</p>
+
+    <p>Comentário</p>
+
+    <textarea
+        name="comentario"
+        rows="5"
+        cols="40"
+    ></textarea>
+
+    <br><br>
+
+    <button>
+
+        Salvar avaliação
+
+    </button>
+
+   <br><br>
+    <a href="/detalhes/<%= tipo %>/<%= item.id %>">
+        ← Voltar aos detalhes
+    </a>
+
+</form>
+
+<script>
+
+const estrelas = document.querySelectorAll(".estrela");
+
+const nota = document.getElementById("nota");
+
+const texto = document.getElementById("textoNota");
+
+let notaAtual = 0;
+
+estrelas.forEach((estrela,index)=>{
+
+    estrela.addEventListener("mousemove",(e)=>{
+
+        const metade = e.offsetX < estrela.clientWidth/2;
+
+        pintar(index,metade);
+
+    });
+
+    estrela.addEventListener("mouseleave",()=>{
+
+        desenhar(notaAtual);
+
+    });
+
+    estrela.addEventListener("click",(e)=>{
+
+        const metade = e.offsetX < estrela.clientWidth/2;
+
+        notaAtual = metade ? index+0.5 : index+1;
+
+        nota.value = notaAtual;
+
+        texto.innerHTML = "Sua nota: " + notaAtual;
+
+        desenhar(notaAtual);
+
+    });
+
+});
+
+function pintar(indice,metade){
+
+    estrelas.forEach(e=>{
+
+        e.className="fa-regular fa-star estrela";
+
+    });
+
+    for(let i=0;i<indice;i++){
+
+        estrelas[i].className="fa-solid fa-star estrela";
+
+    }
+
+    estrelas[indice].className=metade
+        ? "fa-solid fa-star-half-stroke estrela"
+        : "fa-solid fa-star estrela";
+
+}
+
+function desenhar(valor){
+
+    estrelas.forEach(e=>{
+
+        e.className="fa-regular fa-star estrela";
+
+    });
+
+    const inteiras=Math.floor(valor);
+
+    for(let i=0;i<inteiras;i++){
+
+        estrelas[i].className="fa-solid fa-star estrela";
+
+    }
+
+    if(valor%1!=0){
+
+        estrelas[inteiras].className="fa-solid fa-star-half-stroke estrela";
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>

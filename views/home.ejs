@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AvaliaSom</title>
+    <link rel="stylesheet" href="/css/style.css">               
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+</head>
+
+<body>
+    <header>
+
+    <div class="logo">
+
+        <img src="/img/logo.png" alt="AvaliaSom">
+
+    </div>
+
+    <form action="/buscar" method="GET" class="pesquisa">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Pesquisar artista, álbum ou música..."
+        >
+
+    </form>
+
+    <nav>
+        
+        <a href="/avaliacoes">Perfil</a>
+
+        <a href="/logout">Sair</a>
+
+    </nav>
+
+</header>
+<div class="container">
+    <h2 class="ola">Olá, <%= usuario.nome %>, veja o que está rolando no mundo da música...</h2>
+
+    <section class="top3-section">
+    <h2>Top 3 músicas mais avaliadas do mês</h2>
+
+<div class="top3">
+
+<% if(topMusicas.length === 0){ %>
+
+    <p>Ainda não existem avaliações este mês.</p>
+
+<% } else { %>
+
+    <% topMusicas.forEach((musica, index) => { %>
+
+        <div class="card-top">
+
+            <h3><%= index + 1 %>° - <%= musica.titulo %></h3>
+
+            <img
+                src="<%= musica.imagem %>"
+                width="120"
+            >
+
+            <p><%= musica.artista %></p>
+
+            <p><b><%= musica.totalAvaliacoes %></b> avaliações</p>
+
+            <p>⭐ <%= musica.media %>/5</p>
+
+        </div>
+
+    <% }) %>
+
+<% } %>
+
+</div> 
+</section>
+<% feed.forEach(secao => { %>
+
+<h2><%= secao.genero.toUpperCase() %></h2>
+
+<div class="feed">
+
+<% secao.musicas.forEach(musica => { %>
+
+<div class="card-feed">
+
+<img src="<%= musica.album.images[0].url %>" width="170">
+
+<h3><%= musica.name %></h3>
+
+<p><%= musica.artists[0].name %></p>
+
+<a href="/detalhes/track/<%= musica.id %>">
+Ver detalhes
+</a>
+
+</div>
+
+<% }) %>
+
+</div>
+
+<% }) %>
