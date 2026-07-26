@@ -238,14 +238,14 @@ app.get("/buscar", async (req, res) => {
                 params: {
                     q: pesquisa,
                     type: "artist,album,track",
-                    limit: 5
+                    limit: 6
                 }
             }
         );
 
         const artistas = resultado.data.artists.items.slice(0, 3);
         const albuns = resultado.data.albums.items.slice(0, 3);
-        const musicas = resultado.data.tracks.items.slice(0, 5);
+        const musicas = resultado.data.tracks.items.slice(0, 6);
 
         res.render("resultado", {
             artistas,

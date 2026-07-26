@@ -166,3 +166,123 @@ button{
 .card-feed a:hover{
     color:#8f39ff;
 }
+
+/* ============================
+   RESULTADOS DA PESQUISA
+============================ */
+
+.resultado-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px;                            
+  justify-items: center;                
+  max-width: 1000px;                    
+  margin: 0 auto;                        
+}
+
+.card-resultado{
+
+    width:220px;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 5px 18px rgba(0,0,0,.15);
+    padding:22px;
+    text-align:center;
+    transition:.25s;
+}
+
+.card-resultado:hover{
+    transform:translateY(-8px);
+}
+
+.card-resultado img{
+
+    width:170px;
+    height:170px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:15px;
+
+}
+
+.card-resultado h3{
+
+    margin:12px 0 8px;
+    font-size:20px;
+    color:#25002f;
+
+}
+
+.card-resultado p{
+
+    margin:6px 0;
+    color:#555;
+    font-size:15px;
+
+}
+
+.card-resultado a{
+
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 18px;
+    border-radius:20px;
+    background:#8f39ff;
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+    transition:.2s;
+
+}
+
+.card-resultado a:hover{
+
+    background:#6d18da;
+
+}
+
+.voltar{
+
+    text-align:center;
+    margin:50px 0;
+
+}
+
+.voltar a{
+
+    display:inline-block;
+    padding:14px 30px;
+    background:#25002f;
+    color:white;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.2s;
+
+}
+
+.voltar a:hover{
+
+    background:#8f39ff;
+
+}
+
+h1{
+    text-align:left;
+    color:white;
+    font-size: 23px;
+    font-weight: normal;
+
+}
+.pre-resultado{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;            
+}
+.container-resultado{
+    max-width: 1000px;     
+    margin: 20px auto 0;   
+    padding: 0 20px;
+}
+
+
