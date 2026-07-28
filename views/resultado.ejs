@@ -41,9 +41,11 @@
         <div class="pre-resultado">
             <h1>Resultados da pesquisa</h1>
 
-            <div class="voltar">
-                <a href="/home">← Voltar</a>
-            </div>
+            <div class="voltar-home">
+    <a href="/home">
+        <img src="/img/voltar2.png" alt="Voltar">
+    </a>
+</div>
         </div>
 
         <h2>Artistas</h2>
@@ -62,7 +64,7 @@
 
                     <h3><%= artista.name %></h3>
 
-                    <a href="/detalhes/artist/<%= artista.id %>">
+                    <a href="/detalhes/artist/<%= artista.id %>?origem=pesquisa&q=<%= encodeURIComponent(q) %>">
                         Abrir
                     </a>
 
@@ -87,7 +89,7 @@
 
                     <p><%= album.artists[0].name %></p>
 
-                    <a href="/detalhes/album/<%= album.id %>">
+                    <a href="/detalhes/album/<%= album.id %>?origem=pesquisa&q=<%= encodeURIComponent(q) %>">
                         Abrir
                     </a>
 
@@ -116,12 +118,12 @@
 
                     <p><%= musica.album.name %></p>
 
-                    <a href="/detalhes/track/<%= musica.id %>">
+                    <a href="/detalhes/track/<%= musica.id %>?origem=pesquisa&q=<%= encodeURIComponent(q) %>">
                         Abrir
                     </a>
 
+                    
                 </div>
-
             <% }) %>
         </div>
         

@@ -6,39 +6,17 @@
     <link
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
 
-.rating{
-
-    display:flex;
-    gap:8px;
-
-}
-
-.estrela{
-
-    font-size:40px;
-
-    color:#f5c518;
-
-    cursor:pointer;
-
-    transition:.15s;
-
-}
-
-.estrela:hover{
-
-    transform:scale(1.15);
-
-}
-
-</style>
 </head>
 
 <body>
-
+<div class="container-avaliar">
+    <div class="card-avaliar">
 <h1><%= item.name %></h1>
 
 <form action="/avaliar" method="POST">
@@ -69,7 +47,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     required
 >
 
-<p>Nota</p>
+<p class="titulo-campo">Nota</p>
 
 <div class="rating">
 
@@ -85,10 +63,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 </div>
 
 <p id="textoNota">
-Clique em uma estrela
+Selecione a nota desejada
 </p>
 
-    <p>Comentário</p>
+<p class="titulo-campo">Comentário</p>
 
     <textarea
         name="comentario"
@@ -98,15 +76,15 @@ Clique em uma estrela
 
     <br><br>
 
+    <div class="botao-avaliar">
     <button>
-
         Salvar avaliação
-
     </button>
+    </div>
 
    <br><br>
-    <a href="/detalhes/<%= tipo %>/<%= item.id %>">
-        ← Voltar aos detalhes
+    <a href="/detalhes/<%= tipo %>/<%= item.id %>" class="btn-voltar">
+        <img src="/img/voltar.png" alt="Voltar">
     </a>
 
 </form>

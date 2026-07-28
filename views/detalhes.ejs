@@ -3,33 +3,125 @@
 
 <head>
     <title><%= item.name %></title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<h1><%= item.name %></h1>
+<header>
 
-<% if (item.images && item.images.length > 0) { %>
+    <div class="logo">
+        <img src="/img/logo.png">
+    </div>
 
-    <img
-        src="<%= item.images[0].url %>"
-        width="250"
-    >
+    <form action="/buscar" method="GET" class="pesquisa">
+        <input
+            type="text"
+            name="q"
+            placeholder="Pesquisar artista, álbum ou música..."
+        >
+    </form>
 
+    <nav>
+        <a href="/avaliacoes">Perfil</a>
+        <a href="/logout">Sair</a>
+    </nav>
+
+</header>
+
+<div class="container-detalhes">
+
+    <div class="card-detalhes">
+
+        <% if(item.images && item.images.length > 0){ %>
+
+            <div class="detalhes-img">
+                <img src="<%= item.images[0].url %>">
+            </div>
+
+        <% } else { %>
+
+            <div class="sem-imagem">
+                🎵
+            </div>
+
+        <% } %>
+
+        <div class="detalhes-info">
+            <div class="topo-info">
+                <span class="tipo"><%= tipoTraduzido %></span>
+
+                <% if(origem === "pesquisa"){ %>
+
+                <a href="/buscar?q=<%= encodeURIComponent(q) %>" class="btn-voltar">
+                    <img src="/img/voltar.png" alt="Voltar">
+                </a>
+
+            <% } else { %>
+
+                <a href="/home" class="btn-voltar">
+                    <img src="/img/voltar.png" alt="Voltar">
+                </a>
+
+            <% } %>
+
+            </div>
+            <h1><%= item.name %></h1>
+
+            <% if(tipo == "track"){ %>
+
+                <p><b>Artista:</b> <%= item.artists[0].name %></p>
+                <p><b>Álbum:</b> <%= item.album.name %></p>
+
+            <% } %>
+
+            <% if(tipo == "album"){ %>
+
+                <p><b>Artista:</b> <%= item.artists[0].name %></p>
+                <p><b>Lançamento:</b> <%= item.release_date.split("-").reverse().join("/") %></p>
+                <p><b>Faixas:</b> <%= item.total_tracks %></p>
+
+            <% } %>
+
+            <% if(tipo == "artist"){ %>
+
+                <% if(item.followers && item.followers.total){ %>
+
+
+            <% } %>
+
+            <% } %>
+
+            <div class="botoes-detalhes">
+
+                <a href="/avaliar/<%= tipo %>/<%= item.id %>" class="btn-roxo">
+                    Avaliar
+                </a>      
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<% if(sucesso){ %>
+<script>
+Swal.fire({
+    icon: "success",
+    title: "Avaliação salva!",
+    text: "Sua avaliação foi registrada com sucesso.",
+    confirmButtonColor: "#8f39ff"
+});
+</script>
 <% } %>
 
-<p>Tipo: <%= tipoTraduzido %></p>
-
-<a href="/avaliar/<%= tipo %>/<%= item.id %>">
-    Avaliar
-</a>
-
-<br><br>
-
-<a href="/home">
-    Voltar
-</a>
-
 </body>
-
 </html>

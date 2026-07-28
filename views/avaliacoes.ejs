@@ -3,50 +3,76 @@
 
 <head>
     <title>Minhas avaliações</title>
+    <link rel="stylesheet" href="/css/avaliacoes.css">
 </head>
 
 <body>
+<div class="topo-avaliacoes">
 
-<h1>Olá, <%= usuario.nome %>!</h1>
+    <div>
 
-<h2>Minhas avaliações</h2>
+        <h1><%= usuario.nome %></h1>
 
+        <h2>Minhas avaliações</h2>
 
-<% if(avaliacoes.length == 0){ %>
+    </div>
 
-<p>Você ainda não fez nenhuma avaliação.</p>
+    <a href="/home" class="btn-voltar-avaliacoes">
+        <img src="/img/voltar2.png" alt="Voltar">
+    </a>
 
-<% } %>
+</div>
 
-<% avaliacoes.forEach(avaliacao => { %>
+    <div class="container-avaliacoes">
 
-<hr>
+    <% if(avaliacoes.length == 0){ %>
 
-<h3><%= avaliacao.titulo %></h3>
+        <p class="sem-avaliacoes">
+            Você ainda não fez nenhuma avaliação.
+        </p>
 
-<p><b>Tipo:</b> <%= traduzirTipo(avaliacao.tipo) %></p>
+    <% } %>
 
-<p><b>Nota:</b> <%= avaliacao.nota %>/5</p>
+    <% avaliacoes.forEach(avaliacao => { %>
 
-<p><%= avaliacao.comentario %></p>
+        <div class="card-avaliacao">
 
-<a href="/editar/<%= avaliacao.idAvaliacao %>">
-Editar
-</a>
+            <h3><%= avaliacao.titulo %></h3>
 
-|
+            <span class="tipo-avaliacao">
+                <%= traduzirTipo(avaliacao.tipo) %>
+            </span>
 
-<a href="/excluir/<%= avaliacao.idAvaliacao %>">
-Excluir
-</a>
+            <p><b>Nota:</b> ⭐ <%= avaliacao.nota %>/5</p>
 
-<% }) %>
+            <p class="comentario">
+                <%= avaliacao.comentario %>
+            </p>
 
-<br><br>
+            <div class="acoes">
 
-<a href="/home">Voltar</a>
+                <a href="/editar/<%= avaliacao.idAvaliacao %>" class="btn-editar">
+                    Editar
+                </a>
 
-</body>
+                <a href="/excluir/<%= avaliacao.idAvaliacao %>" class="btn-excluir">
+                    Excluir
+                </a>
 
-</html>
+            </div>
 
+        </div>
+
+    <% }) %>
+
+    <div class="voltar-home">
+
+        <a href="/home">
+
+            <img src="/img/voltar2.png" alt="Voltar">
+
+        </a>
+
+    </div>
+
+</div>

@@ -180,7 +180,7 @@ app.get("/home", (req, res) => {
             const feed = [];
 
     for (const genero of generos) {
-
+    try {
         const resposta = await axios.get(
             "https://api.spotify.com/v1/search",
             {
@@ -200,7 +200,11 @@ app.get("/home", (req, res) => {
             musicas: resposta.data.tracks.items
         });
 
+    } catch (erro) {
+        console.log(`Erro no gênero ${genero}`);
     }
+}
+
                 
             res.render("home", {
                 usuario: req.session.usuario,
@@ -250,7 +254,9 @@ app.get("/buscar", async (req, res) => {
         res.render("resultado", {
             artistas,
             albuns,
-            musicas
+            musicas,
+            q: req.query.q
+
         });
 
     } catch (erro) {
@@ -282,13 +288,15 @@ app.get("/detalhes/:tipo/:id", async (req, res) => {
             }
 
         );
-
+        
         res.render("detalhes", {
 
             item: resultado.data,
             tipo,
-            tipoTraduzido: traduzirTipo(tipo)
-
+            tipoTraduzido: traduzirTipo(tipo),
+            origem: req.query.origem,
+            q: req.query.q,
+            sucesso: req.query.sucesso
 
         });
 
@@ -365,14 +373,12 @@ app.post("/avaliar", (req, res) => {
         sql,
 
         [
-
             idUsuario,
             spotifyId,
             tipo,
             titulo,
             nota,
             comentario
-
         ],
 
         (erro) => {
@@ -384,8 +390,7 @@ app.post("/avaliar", (req, res) => {
 
             }
 
-            res.send("Avaliação salva com sucesso!");
-
+            res.redirect(`/detalhes/${tipo}/${spotifyId}?sucesso=1`);
         }
 
     );
