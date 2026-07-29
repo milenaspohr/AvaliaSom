@@ -1,25 +1,63 @@
-<h1>Login</h1>
+<head>
+    <title>Login - AvaliaSom</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
 
-<form action="/login" method="POST">
 
-    <input
-        type="email"
-        name="email"
-        placeholder="Email"
-    >
+<div class="containerLogin">
 
-    <input
-        type="password"
-        name="senha"
-        placeholder="Senha"
-    >
 
-    <button>
-        Entrar
-    </button>
+    <div class="boasVindas">
+        <img src="/img/logo.png" alt="AvaliaSom">
 
-    <p>Ainda não possui uma conta?</p>
 
-<a href="/cadastro">Cadastre-se</a>
+        <h2>
+            Bem-vindo ao AvaliaSom! Descubra novas músicas, avalie artistas e álbuns, compartilhe sua opinião e acompanhe o que está em alta entre os usuários.
+        </h2>
+    </div>
 
-</form>
+
+    <div class="login">
+
+
+        <h1>Login</h1>
+
+
+        <form action="/login" method="POST">
+
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Email"
+            >
+
+
+            <input
+                type="password"
+                name="senha"
+                placeholder="Senha"
+            >
+
+
+            <button>
+                Entrar
+            </button>
+
+
+            <p>Ainda não possui uma conta?</p>
+
+
+            <a href="/cadastro">Cadastre-se</a>
+
+
+        </form>
+
+
+    </div>
+
+
+</div>

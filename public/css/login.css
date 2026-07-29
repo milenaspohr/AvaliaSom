@@ -1,0 +1,138 @@
+body{
+    margin:0;
+    font-family: "Poppins", sans-serif;
+}
+.containerLogin{
+    width: 900px;
+    max-width: 90%;
+    height: 550px;
+
+    margin: 60px auto;
+
+    display: flex;
+
+    background: linear-gradient(135deg,#7b4dff,#5b1f91);
+    border-radius: 22px;
+    overflow: hidden;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+.boasVindas{
+    flex:1;
+
+    background: #25002f;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    padding:60px;
+    text-align:center;
+}
+
+.boasVindas img{
+    width:400px;
+    margin-bottom:22px;
+}
+
+.boasVindas h2{
+    font-size:15px;
+    font-weight:600;
+    color:white;
+    margin-bottom:20px;
+}
+
+
+/* Lado direito */
+
+.login{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    padding:60px;
+    background:white;
+}
+
+.login h1{
+    color:#25002f;
+    font-size:36px;
+    margin-bottom:35px;
+    text-align:center;
+    font-weight:700;
+}
+
+.login form{
+    width:100%;
+    max-width:320px;
+
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+
+    margin:0;
+}
+
+.login input{
+    width:100%;
+    box-sizing:border-box;
+
+    padding:14px 18px;
+
+    border:1px solid #ddd;
+    border-radius:25px;
+
+    outline:none;
+
+    font-size:15px;
+    transition:.2s;
+}
+
+.login input:focus{
+    border-color:#25002f;
+    box-shadow:0 0 0 3px rgba(143,57,255,.15);
+}
+
+.login button{
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+    border-radius:25px;
+
+    background:#25002f;
+
+    color:white;
+    font-size:16px;
+    font-weight:600;
+
+    cursor:pointer;
+    transition:.2s;
+}
+
+.login button:hover{
+    background:#6d18da;
+}
+
+.login p{
+    margin:15px 0 5px;
+    text-align:center;
+    color:#666;
+    font-size:14px;
+}
+
+.login a{
+    text-align:center;
+    text-decoration:none;
+    font-weight:600;
+    color:#25002f;
+}
+
+.login a:hover{
+    color:#25002f;
+}
