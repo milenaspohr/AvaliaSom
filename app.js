@@ -559,6 +559,96 @@ app.get("/excluir/:id", (req, res) => {
 
 });
 
+// avaliações de um item específico
+app.get("/avaliacoes-item/:spotifyId", async (req, res) => {
+
+    try {
+
+        const spotifyId = req.params.spotifyId;
+
+        const token = await getToken();
+
+        const resultado = await axios.get(
+
+            `https://api.spotify.com/v1/tracks/${spotifyId}`,
+
+            {
+
+                headers: {
+
+                    Authorization: `Bearer ${token}`
+
+                }
+
+            }
+
+        );
+
+        const sql = `
+
+            SELECT
+                a.*,
+                u.nome
+
+            FROM avaliacoes a
+
+            JOIN usuarios u
+
+                ON a.idUsuario = u.idUsuario
+
+            WHERE a.spotifyId = ?
+
+            ORDER BY a.idAvaliacao DESC
+
+        `;
+
+        bd.query(sql, [spotifyId], (erro, avaliacoes) => {
+
+            if (erro) {
+
+                console.log(erro);
+
+                return res.send("Erro ao buscar avaliações.");
+
+            }
+
+            let media = 0;
+
+            if (avaliacoes.length > 0) {
+
+                let soma = 0;
+
+                avaliacoes.forEach(avaliacao => {
+
+                    soma += Number(avaliacao.nota);
+
+                });
+
+                media = soma / avaliacoes.length;
+
+            }
+
+            res.render("avaliacoes-item", {
+
+                item: resultado.data,
+                avaliacoes,
+                media,
+                total: avaliacoes.length
+
+            });
+
+        });
+
+    } catch (erro) {
+
+        console.log(erro);
+
+        res.send("Erro ao carregar a página.");
+
+    }
+
+});
+
 
 app.listen(3000, () => {
     console.log("Servidor rodando");

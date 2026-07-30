@@ -39,7 +39,7 @@
 
 </header>
 <div class="container">
-    <h2 class="ola">Olá, <%= usuario.nome %>, veja o que está rolando no mundo da música...</h2>
+    <h2 class="ola">Olá <%= usuario.nome %>! Veja o que está rolando no mundo da música...</h2>
 
     <section class="top3-section">
     <h2>Top 3 músicas mais avaliadas do mês</h2>
@@ -66,6 +66,7 @@
             <p><%= musica.artista %></p>
 
             <p><b><%= musica.totalAvaliacoes %></b> avaliações</p>
+            <a href="/avaliacoes-item/<%= musica.spotifyId %>" class="btn-roxo">Ver</a>
 
             <p>⭐ <%= musica.media %>/5</p>
 
@@ -77,21 +78,17 @@
 
 </div> 
 </section>
-<% feed.forEach(secao => { %>
+        <% feed.forEach(secao => { %>
+        <h2><%= secao.genero.toUpperCase() %></h2>
 
-<h2><%= secao.genero.toUpperCase() %></h2>
+        <div class="feed">
+        <% secao.musicas.forEach(musica => { %>
 
-<div class="feed">
+        <div class="card-feed">
+        <img src="<%= musica.album.images[0].url %>" width="170">
+        <h3><%= musica.name %></h3>
 
-<% secao.musicas.forEach(musica => { %>
-
-<div class="card-feed">
-
-<img src="<%= musica.album.images[0].url %>" width="170">
-
-<h3><%= musica.name %></h3>
-
-<p><%= musica.artists[0].name %></p>
+        <p><%= musica.artists[0].name %></p>
 
 <a href="/detalhes/track/<%= musica.id %>?origem=home">
     Ver detalhes

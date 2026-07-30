@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Avaliações</title>
+
+    <link rel="stylesheet" href="/css/avaliacoes-item.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <img src="/img/logo.png">
+    </div>
+
+    <form action="/buscar" method="GET" class="pesquisa">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Pesquisar artista, álbum ou música..."
+        >
+
+    </form>
+
+    <nav>
+
+        <a href="/avaliacoes">Perfil</a>
+
+        <a href="/logout">Sair</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container-item">
+
+    <div class="topo-item">
+
+        <a href="/home" class="btn-voltar">
+            <img src="/img/voltar.png" alt="Voltar" class="capa">
+        </a>
+
+        <img
+            src="<%= item.album.images[0].url %>"
+            class="capa-item"
+        >
+
+        <div class="info-item">
+
+            <span class="tipo-item">Música</span>
+
+            <h1 class="titulo-item"><%= item.name %></h1>
+
+            <p class="artista-item">
+                <b>Artista:</b> <%= item.artists[0].name %>
+            </p>
+
+            <h2 class="media-item">
+                ⭐ <%= media.toFixed(1) %>/5
+            </h2>
+
+            <p class="total-avaliacoes">
+                <%= total %> avaliações
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <h2 class="titulo-avaliacoes">
+
+        Avaliações
+
+    </h2>
+
+    <% if(avaliacoes.length == 0){ %>
+
+        <p class="sem-avaliacoes">
+
+            Ainda não existem avaliações para esta música.
+
+        </p>
+
+    <% } %>
+
+
+    <div class="lista-avaliacoes">
+
+    <% avaliacoes.forEach(avaliacao => { %>
+
+        <div class="card-avaliacao-publica">
+
+            <div class="topo-card">
+
+                <h3 class="nome-usuario">
+                    <%= avaliacao.nome %>
+                </h3>
+
+                <span class="nota-publica">
+
+                    ⭐ <%= avaliacao.nota %>/5
+
+                </span>
+
+            </div>
+
+            <% if(avaliacao.comentario){ %>
+
+                <p class="comentario-publico">
+
+                    <%= avaliacao.comentario %>
+
+                </p>
+
+            <% } else { %>
+
+                <p class="comentario-vazio">
+
+                    Este usuário não deixou um comentário.
+
+                </p>
+
+            <% } %>
+
+        </div>
+
+    <% }) %>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
