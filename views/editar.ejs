@@ -2,52 +2,178 @@
 <html>
 
 <head>
+
     <title>Editar avaliação</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
-<h1>Editar avaliação</h1>
+<div class="container-avaliar">
 
-<form action="/editar/<%= avaliacao.idAvaliacao %>" method="POST">
+    <div class="card-avaliar">
 
-<p>Nota</p>
+        <h1>Editar avaliação</h1>
 
-<input
-type="number"
-name="nota"
-min="1"
-max="5"
-value="<%= avaliacao.nota %>"
-required>
+        <form action="/editar/<%= avaliacao.idAvaliacao %>" method="POST">
 
-<br><br>
+            <input
+                type="hidden"
+                name="nota"
+                id="nota"
+                value="<%= avaliacao.nota %>"
+                required>
 
-<p>Comentário</p>
+            <p class="titulo-campo">Nota</p>
 
-<textarea
-name="comentario"
-rows="5"
-cols="40"
-required><%= avaliacao.comentario %></textarea>
+            <div class="rating">
 
-<br><br>
+                <% for(let i = 1; i <= 5; i++){ %>
 
-<button>
+                    <i
+                        class="fa-regular fa-star estrela"
+                        data-value="<%= i %>">
+                    </i>
 
-Salvar
+                <% } %>
 
-</button>
+            </div>
 
-</form>
+            <p id="textoNota"></p>
 
-<br>
+            <p class="titulo-campo">Comentário</p>
 
-<a href="/avaliacoes">
+            <textarea
+                name="comentario"
+                rows="5"
+                cols="40"><%= avaliacao.comentario %></textarea>
 
-Cancelar
+            <div class="botao-avaliar">
 
-</a>
+                <button type="submit">
+
+                    Salvar alterações
+
+                </button>
+
+            </div>
+
+            <br><br>
+
+            <a href="/avaliacoes" class="btn-voltar">
+
+                <img src="/img/voltar.png" alt="Voltar">
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+const estrelas = document.querySelectorAll(".estrela");
+
+const nota = document.getElementById("nota");
+
+const texto = document.getElementById("textoNota");
+
+let notaAtual = Number(nota.value);
+
+texto.innerHTML = "Sua nota: " + notaAtual;
+
+desenhar(notaAtual);
+
+estrelas.forEach((estrela,index)=>{
+
+    estrela.addEventListener("mousemove",(e)=>{
+
+        const metade = e.offsetX < estrela.clientWidth/2;
+
+        pintar(index,metade);
+
+    });
+
+    estrela.addEventListener("mouseleave",()=>{
+
+        desenhar(notaAtual);
+
+    });
+
+    estrela.addEventListener("click",(e)=>{
+
+        const metade = e.offsetX < estrela.clientWidth/2;
+
+        notaAtual = metade ? index+0.5 : index+1;
+
+        nota.value = notaAtual;
+
+        texto.innerHTML = "Sua nota: " + notaAtual;
+
+        desenhar(notaAtual);
+
+    });
+
+});
+
+function pintar(indice,metade){
+
+    estrelas.forEach(e=>{
+
+        e.className="fa-regular fa-star estrela";
+
+    });
+
+    for(let i=0;i<indice;i++){
+
+        estrelas[i].className="fa-solid fa-star estrela";
+
+    }
+
+    estrelas[indice].className = metade
+        ? "fa-solid fa-star-half-stroke estrela"
+        : "fa-solid fa-star estrela";
+
+}
+
+function desenhar(valor){
+
+    estrelas.forEach(e=>{
+
+        e.className="fa-regular fa-star estrela";
+
+    });
+
+    const inteiras = Math.floor(valor);
+
+    for(let i=0;i<inteiras;i++){
+
+        estrelas[i].className="fa-solid fa-star estrela";
+
+    }
+
+    if(valor % 1 != 0){
+
+        estrelas[inteiras].className="fa-solid fa-star-half-stroke estrela";
+
+    }
+
+}
+
+</script>
 
 </body>
 

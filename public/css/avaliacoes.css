@@ -14,7 +14,6 @@ body{
 
 }
 
-
 .card-avaliacao{
 
     background:rgba(255,255,255,.90);
@@ -58,6 +57,15 @@ body{
     font-size:18px;
     color:#444;
     margin:10px 0;
+
+}
+
+.card-avaliacao .data-avaliacao{
+
+    color:#888;
+    font-size:15px;
+    margin-top:8px;
+    margin-bottom:0;
 
 }
 
@@ -159,3 +167,4 @@ body{
 .btn-voltar-avaliacoes:hover{
     transform: scale(1.1);
 }
+

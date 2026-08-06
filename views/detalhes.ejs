@@ -45,8 +45,8 @@
 
         <% } else { %>
 
-            <div class="sem-imagem">
-                🎵
+            <div class="detalhes-img">
+                <img src="<%= item.album.images[0].url %>">
             </div>
 
         <% } %>
@@ -110,18 +110,20 @@
 
 </div>
 
+
+
+</body>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<% if(sucesso){ %>
+<% if (sucesso) { %>
 <script>
 Swal.fire({
     icon: "success",
-    title: "Avaliação salva!",
-    text: "Sua avaliação foi registrada com sucesso.",
+    title: "Avaliação criada!",
+    text: "Sua avaliação foi publicada com sucesso.",
     confirmButtonColor: "#8f39ff"
 });
 </script>
 <% } %>
-
-</body>
 </html>

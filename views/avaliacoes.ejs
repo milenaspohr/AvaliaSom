@@ -45,6 +45,9 @@
             <p class="comentario">
                 <%= avaliacao.comentario %>
             </p>
+            <p class="data-avaliacao">
+                <%= avaliacao.dataFormatada %>
+            </p>
 
             <div class="acoes">
 
@@ -52,24 +55,82 @@
                     Editar
                 </a>
 
-                <a href="/excluir/<%= avaliacao.idAvaliacao %>" class="btn-excluir">
-                    Excluir
-                </a>
-
+                <a href="#"
+   class="btn-excluir"
+   onclick="confirmarExclusao('<%= avaliacao.idAvaliacao %>')">
+    Excluir
+</a>
             </div>
 
         </div>
 
     <% }) %>
-
-    <div class="voltar-home">
-
-        <a href="/home">
-
-            <img src="/img/voltar2.png" alt="Voltar">
-
-        </a>
-
-    </div>
-
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+function confirmarExclusao(id){
+
+    Swal.fire({
+
+        title: "Excluir avaliação?",
+        text: "Essa ação não poderá ser desfeita.",
+        icon: "warning",
+
+        showCancelButton: true,
+
+        confirmButtonColor: "#d64545",
+        cancelButtonColor: "#8f39ff",
+
+        confirmButtonText: "Sim, excluir",
+        cancelButtonText: "Cancelar"
+
+    }).then((result)=>{
+
+        if(result.isConfirmed){
+
+            window.location.href="/excluir/"+id;
+
+        }
+
+    });
+
+}
+
+</script>
+<% if(excluido){ %>
+
+    // confirmar exclusão
+<script>
+
+Swal.fire({
+
+    icon: "success",
+    title: "Avaliação excluída!",
+    text: "Sua avaliação foi removida com sucesso.",
+    confirmButtonColor: "#8f39ff"
+
+});
+
+</script>
+
+<% } %>
+
+<% if(editado){ %>
+
+<script>
+
+Swal.fire({
+
+    icon: "success",
+    title: "Avaliação editada!",
+    text: "As alterações foram salvas com sucesso.",
+    confirmButtonColor: "#8f39ff"
+
+});
+
+</script>
+
+<% } %>
+</body>

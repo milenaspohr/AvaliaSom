@@ -39,7 +39,7 @@
 
 </header>
 <div class="container">
-    <h2 class="ola">Olá <%= usuario.nome %>! Veja o que está rolando no mundo da música...</h2>
+    <h2 class="ola">Olá, <%= usuario.nome %>! Veja o que está rolando no mundo da música...</h2>
 
     <section class="top3-section">
     <h2>Top 3 músicas mais avaliadas do mês</h2>
@@ -48,12 +48,12 @@
 
 <% if(topMusicas.length === 0){ %>
 
-    <p>Ainda não existem avaliações este mês.</p>
+    <p class="sem-avaliacoes">Ainda não existem avaliações este mês.</p>
 
 <% } else { %>
 
     <% topMusicas.forEach((musica, index) => { %>
-
+        <a href="/avaliacoes-item/<%= musica.spotifyId %>" class="card-link">
         <div class="card-top">
 
             <h3><%= index + 1 %>° - <%= musica.titulo %></h3>
@@ -66,11 +66,10 @@
             <p><%= musica.artista %></p>
 
             <p><b><%= musica.totalAvaliacoes %></b> avaliações</p>
-            <a href="/avaliacoes-item/<%= musica.spotifyId %>" class="btn-roxo">Ver</a>
-
             <p>⭐ <%= musica.media %>/5</p>
 
         </div>
+    </a>
 
     <% }) %>
 

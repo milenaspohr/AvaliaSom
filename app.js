@@ -62,7 +62,7 @@ app.post("/cadastro", (req, res) => {
                 return res.send("Erro ao cadastrar");
             }
 
-            res.send("Usuário cadastrado!");
+            res.redirect("/?cadastrado=1");
         }
     );
 
@@ -70,7 +70,11 @@ app.post("/cadastro", (req, res) => {
 
 app.get("/", (req, res) => {
 
-    res.render("login");
+    res.render("login", {
+        cadastrado: req.query.cadastrado,
+        erro: req.query.erro
+    });
+    
 });
 // login
 app.post("/login", (req, res) => {
@@ -93,7 +97,7 @@ app.post("/login", (req, res) => {
 
         } else {
 
-            res.send("Email ou senha incorretos.");
+            res.redirect("/?erro=1");
 
         }
 
@@ -403,12 +407,12 @@ app.get("/avaliacoes", (req, res) => {
     const idUsuario = req.session.usuario.idUsuario;
 
     const sql = `
-        SELECT *
-        FROM avaliacoes
-        WHERE idUsuario = ?
-        ORDER BY dataCriacao DESC
-    `;
-
+    SELECT *,
+           DATE_FORMAT(dataCriacao, '%d/%m/%Y') AS dataFormatada
+    FROM avaliacoes
+    WHERE idUsuario = ?
+    ORDER BY dataCriacao DESC
+`;
     bd.query(sql, [idUsuario], (erro, resultados) => {
 
         if (erro) {
@@ -420,7 +424,9 @@ app.get("/avaliacoes", (req, res) => {
 
             usuario: req.session.usuario,
             avaliacoes: resultados,
-            traduzirTipo: traduzirTipo
+            traduzirTipo: traduzirTipo,
+            excluido: req.query.excluido,
+            editado: req.query.editado
 
         });
 
@@ -513,8 +519,7 @@ app.post("/editar/:id", (req, res) => {
 
             }
 
-            res.redirect("/avaliacoes");
-
+                res.redirect("/avaliacoes?editado=1");
         }
 
     );
@@ -551,7 +556,7 @@ app.get("/excluir/:id", (req, res) => {
 
             }
 
-            res.redirect("/avaliacoes");
+            res.redirect("/avaliacoes?excluido=1");
 
         }
 
